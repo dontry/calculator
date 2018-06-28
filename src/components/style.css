@@ -1,0 +1,56 @@
+.container {
+   display: grid;
+}
+
+.screen {
+    display: grid;
+    background-color: #000;
+    color: #fff;
+    height: 50px;
+    justify-content: end;
+    align-items: end;
+    padding: 10px;
+    font-size: 2rem;
+}
+
+
+.keypad {
+    display: grid;
+    border: 1px solid rgb(100, 100, 100);
+    grid-gap: 1px;
+    grid-template-columns: repeat(4, minmax(50px, 1fr));
+    grid-template-rows: repeat(5,  minmax(50px, 1fr));
+    background-color: rgb(100, 100, 100);
+}
+
+.key {
+    background-color: rgb(223, 223, 223);
+    color: #000000;
+    font-weight: 300;
+    font-size: 1.5rem;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.key.head {
+    background-color: rgb(200, 200, 200);
+}
+
+.key.aside {
+    background-color: rgb(223, 171, 0); 
+    color: #fff;
+}
+
+.key:active {
+    background-color: rgb(181, 178, 178);
+}
+
+.key.aside:active {
+    background-color: rgb(181, 139, 2); 
+}
+
+.key.bottomLeft {
+    grid-column: 1 / span 2;
+}
