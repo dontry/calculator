@@ -1,0 +1,40 @@
+{
+    "plugins": [
+        "import",
+        "react",
+        "jest",
+        "jsx-a11y",
+        "prettier"
+    ],
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended"],
+    "globals": {
+        "expect": true,
+        "toJson": true
+
+    },
+    "parserOptions": {
+        "ecmaVersion": 7,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
+    "parser": "babel-eslint",
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true,
+        "mocha": true,
+        "jest": true
+    },
+    "rules": {
+        "no-console": "warn",
+        "jest/no-disabled-tests": "warn",
+        "jest/no-focused-tests": "error",
+        "jest/no-identical-title": "error",
+        "jest/prefer-to-have-length": "warn",
+        "jest/valid-expect": "error",
+        "react/no-deprecated": "warn",
+        "react/prop-types": "warn"
+    }
+}
