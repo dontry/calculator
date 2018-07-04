@@ -53,7 +53,7 @@ function handleNumber(state, number) {
       newDisplayResult = displayResult + number;
     }
   }
-  newActualResult = Number.parseFloat(displayResult);
+  newActualResult = Number.parseFloat(newDisplayResult);
   return {
     ...state,
     displayResult: newDisplayResult,
@@ -117,7 +117,9 @@ function handleClear(state) {
     return INITIAL_STATE;
   } else {
     return {
-      ...INITIAL_STATE,
+      ...state,
+      displayResult: "0",
+      actualResult: 0,
       lastActionType: TYPE_CLEAR
     };
   }
@@ -129,6 +131,10 @@ function handleEqual(state) {
   if (lastOperation.toString() === "x => x") {
     newActualResult = actualResult;
     newDisplayResult = displayResult;
+  } else if (lastOperation.toString().includes("/") && actualResult === 0) {
+    // x / 0 = ERROR
+    newActualResult = NaN;
+    newDisplayResult = "Error";
   } else {
     newActualResult = lastOperation(actualResult);
     newDisplayResult = "" + newActualResult;

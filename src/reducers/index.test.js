@@ -12,12 +12,15 @@ import { equal } from "assert";
 
 describe("TYPE NUMBER", () => {
   it(`should display 2 when previous number is 0, lastActionType is NULL and pressed number is 2`, () => {
-    const xxx = INITIAL_STATE;
+    const prevState = INITIAL_STATE;
     const action = pressKey(TYPE_NUMBER, 2);
     const curState = reducer(xxx, action);
-    expect(curState.displayResult).toEqual("2");
-    expect(curState.actualResult).toEqual(2);
-    expect(curState.lastActionType).toEqual(TYPE_NUMBER);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "2",
+      actualResult: 2,
+      lastActionType: TYPE_NUMBER
+    });
   });
 
   it(`should display 22 when previous number is 2, lastActionType is TYPE_NUMBER and pressed number is 2`, () => {
@@ -30,9 +33,12 @@ describe("TYPE NUMBER", () => {
 
     const action = pressKey(TYPE_NUMBER, 2);
     const curState = reducer(prevState, action);
-    expect(curState.displayResult).toEqual("22");
-    expect(curState.actualResult).toEqual(22);
-    expect(curState.lastActionType).toEqual(TYPE_NUMBER);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "22",
+      actualResult: 22,
+      lastActionType: TYPE_NUMBER
+    });
   });
 
   it(`should display 2 when previous number is 22, lastActionType is TYPE_OPERATOR and pressed number is 2`, () => {
@@ -45,9 +51,12 @@ describe("TYPE NUMBER", () => {
 
     const action = pressKey(TYPE_NUMBER, 2);
     const curState = reducer(prevState, action);
-    expect(curState.displayResult).toEqual("2");
-    expect(curState.actualResult).toEqual(2);
-    expect(curState.lastActionType).toEqual(TYPE_NUMBER);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "2",
+      actualResult: 2,
+      lastActionType: TYPE_NUMBER
+    });
   });
 
   it(`should display 2 when preious number is 22, lastActionType is TYPE_EQUAL and pressed number is 2`, () => {
@@ -60,9 +69,12 @@ describe("TYPE NUMBER", () => {
 
     const action = pressKey(TYPE_NUMBER, 2);
     const curState = reducer(prevState, action);
-    expect(curState.displayResult).toEqual("2");
-    expect(curState.actualResult).toEqual(2);
-    expect(curState.lastActionType).toEqual(TYPE_NUMBER);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "2",
+      actualResult: 2,
+      lastActionType: TYPE_NUMBER
+    });
   });
 });
 
@@ -180,20 +192,24 @@ describe("TYPE CHANGE SIGN", () => {
 });
 
 describe("TYPE CLEAR", () => {
-  it("should reset number to 0 with one click", () => {
+  it("should reset number to 0 with one click, lastOperation remain the same", () => {
     const prevState = {
       displayResult: "22",
       actualResult: 22,
-      lastOperation: x => x,
+      lastOperation: x => 2 * x,
       lastActionType: TYPE_NUMBER
     };
 
     const action = pressKey(TYPE_CLEAR);
     const curState = reducer(prevState, action);
-    expect(curState).toEqual({
+    expect({
+      ...curState,
+      lastOperation: curState.lastOperation.toString()
+    }).toEqual({
       ...prevState,
       displayResult: "0",
       actualResult: 0,
+      lastOperation: prevState.lastOperation.toString(),
       lastActionType: TYPE_CLEAR
     });
   });
@@ -208,7 +224,14 @@ describe("TYPE CLEAR", () => {
 
     const action = pressKey(TYPE_CLEAR);
     const curState = reducer(prevState, action);
-    expect(curState).toEqual(INITIAL_STATE);
+    expect({
+      ...curState,
+      lastOperation: INITIAL_STATE.lastOperation.toString()
+    }).toEqual({
+      ...INITIAL_STATE,
+      lastActionType: TYPE_CLEAR,
+      lastOperation: INITIAL_STATE.lastOperation.toString()
+    });
   });
 });
 
@@ -246,7 +269,7 @@ describe("TYPE EQUAL", () => {
     });
   });
 
-  it("should return 4, when previous number is 2, last operation is multiply, last action type is TYPE_OPERATOR", () => {
+  it("should be '2 * 2 = 4', last action type is TYPE_OPERATOR", () => {
     const prevState = {
       displayResult: "2",
       actualResult: 2,
@@ -264,7 +287,25 @@ describe("TYPE EQUAL", () => {
     });
   });
 
-  it("should return 4, when previous number is 2, last operation is multiply, last action type is TYPE_EQUAL", () => {
+  it("should be '2 - 4 = -2', last action type is TYPE_NUMBER", () => {
+    const prevState = {
+      displayResult: "4",
+      actualResult: 4,
+      lastOperation: x => 2 - x,
+      lastActionType: TYPE_OPERATOR
+    };
+
+    const action = pressKey(TYPE_EQUAL);
+    const curState = reducer(prevState, action);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "-2",
+      actualResult: -2,
+      lastActionType: TYPE_EQUAL
+    });
+  });
+
+  it("should be '2 * 2 = 4', last action type is TYPE_EQUAL", () => {
     const prevState = {
       displayResult: "2",
       actualResult: 2,
@@ -278,6 +319,42 @@ describe("TYPE EQUAL", () => {
       ...prevState,
       displayResult: "4",
       actualResult: 4,
+      lastActionType: TYPE_EQUAL
+    });
+  });
+
+  it("should be ' 2 / 0 = ERROR',last action type is TYPE_NUMBER", () => {
+    const prevState = {
+      displayResult: "0",
+      actualResult: 0,
+      lastOperation: x => 2 / x,
+      lastActionType: TYPE_NUMBER
+    };
+
+    const action = pressKey(TYPE_EQUAL);
+    const curState = reducer(prevState, action);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "Error",
+      actualResult: NaN,
+      lastActionType: TYPE_EQUAL
+    });
+  });
+
+  it("should be ' 0 / 0 = ERROR',last action type is TYPE_OPERATOR", () => {
+    const prevState = {
+      displayResult: "0",
+      actualResult: 0,
+      lastOperation: x => 0 / x,
+      lastActionType: TYPE_NUMBER
+    };
+
+    const action = pressKey(TYPE_EQUAL);
+    const curState = reducer(prevState, action);
+    expect(curState).toEqual({
+      ...prevState,
+      displayResult: "Error",
+      actualResult: NaN,
       lastActionType: TYPE_EQUAL
     });
   });

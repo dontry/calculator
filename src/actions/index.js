@@ -7,13 +7,19 @@ export const TYPE_EQUAL = "EQUAL";
 export const TYPE_PERCENT = "PERCENT";
 
 export const pressKey = (keyType, keyValue = {}) => {
-  if (keyType === TYPE_OPERATOR) {
-    keyValue = generateOperationFunc(keyValue);
+  if (keyType === TYPE_OPERATOR || keyType === NUMBER) {
+    if (keyType === TYPE_OPERATOR) {
+      keyValue = generateOperationFunc(keyValue);
+    }
+    return {
+      type: keyType,
+      payload: keyValue
+    };
+  } else {
+    return {
+      type: keyType
+    };
   }
-  return {
-    type: keyType,
-    payload: keyValue
-  };
 };
 
 function generateOperationFunc(keyValue) {
