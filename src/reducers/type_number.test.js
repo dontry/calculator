@@ -3,7 +3,7 @@ import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 
 describe("TYPE NUMBER", () => {
-  it("should display 2 when previous number is 0, lastActionType is NULL and pressed number is 2", () => {
+  it("should display 2 when previous state is INITIAL_STATE and pressed number is 2", () => {
     const prevState = INITIAL_STATE;
     const action = pressKey(TYPE_NUMBER, 2);
     const curState = reducer(prevState, action);

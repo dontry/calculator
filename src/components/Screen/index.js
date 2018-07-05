@@ -3,11 +3,8 @@ import { connect } from "react-redux";
 
 export { view };
 
-const mapStateToProps = state => {
-  console.log(state);
-  return {
-    data: state.displayResult
-  };
-};
+const mapStateToProps = state => ({
+  data: state.displayResult
+});
 
 export default connect(mapStateToProps)(view);

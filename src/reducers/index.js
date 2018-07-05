@@ -40,22 +40,20 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 function handleNumber(state, number) {
-  console.log(`number ${number}`);
   const { displayResult, lastActionType } = state;
   let newActualResult, newDisplayResult;
   if (
-    lastActionType === TYPE_OPERATOR ||
-    lastActionType === TYPE_EQUAL ||
-    lastActionType === TYPE_CLEAR ||
-    lastActionType === null
+    lastActionType === TYPE_NUMBER ||
+    lastActionType === TYPE_CHANGE_SIGN ||
+    lastActionType === TYPE_DECIMAL
   ) {
-    newDisplayResult = "" + number;
-  } else {
     if (displayResult === "0" || displayResult === "-0") {
       newDisplayResult = displayResult.replace("0", number);
     } else {
       newDisplayResult = displayResult + number;
     }
+  } else {
+    newDisplayResult = "" + number;
   }
   newActualResult = Number.parseFloat(newDisplayResult);
   return {

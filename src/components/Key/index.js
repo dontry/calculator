@@ -10,7 +10,6 @@ const mapStateToProps = ({ lastActionType }) => ({
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClick: () => {
-      console.log("dispatch key " + ownProps.keyType);
       dispatch(pressKey(ownProps.keyType, ownProps.keyValue));
     }
   };

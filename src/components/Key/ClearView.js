@@ -2,11 +2,15 @@ import React from "react";
 import BaseView from "./BaseView";
 import { TYPE_CLEAR } from "../../actions/index";
 
-const ClearView = props =>
-  props.lastActionType === TYPE_CLEAR ? (
-    <BaseView {...props} keySymbol="AC" />
+type PropTypes = {
+  lastActionType: string
+};
+
+const ClearView = ({ lastActionType, ...rest }: PropTypes) =>
+  lastActionType === TYPE_CLEAR ? (
+    <BaseView {...rest} keySymbol="AC" />
   ) : (
-    <BaseView {...props} />
+    <BaseView {...rest} />
   );
 
 export default ClearView;

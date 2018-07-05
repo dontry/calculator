@@ -1,10 +1,10 @@
 import React from "react";
 
-type Props = {
+type PropTypes = {
   data: string
 };
 
-const Screen = ({ data }: Props) => {
+const Screen = ({ data }: PropTypes) => {
   return <div className="screen">{data}</div>;
 };
 
