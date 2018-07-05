@@ -4,10 +4,16 @@ export const TYPE_CLEAR = "CLEAR";
 export const TYPE_CHANGE_SIGN = "CHANGE_SIGN";
 export const TYPE_DECIMAL = "DECIMAL";
 export const TYPE_EQUAL = "EQUAL";
-export const TYPE_PERCENT = "PERCENT";
+export const TYPE_PERCENTAGE = "PERCENT";
+
+
+export const plus = b => a => b + a;
+export const subtract = b => a => b - a;
+export const multiply = b => a => b * a;
+export const divide = b => a => b / a;
 
 export const pressKey = (keyType, keyValue = {}) => {
-  if (keyType === TYPE_OPERATOR || keyType === NUMBER) {
+  if (keyType === TYPE_OPERATOR || keyType === TYPE_NUMBER) {
     if (keyType === TYPE_OPERATOR) {
       keyValue = generateOperationFunc(keyValue);
     }
@@ -25,19 +31,15 @@ export const pressKey = (keyType, keyValue = {}) => {
 function generateOperationFunc(keyValue) {
   switch (keyValue) {
     case "+":
-      return;
+      return plus;
     case "-":
-      return b => a => a - b;
+      return subtract;
     case "*":
-      return b => a => a * b;
+      return multiply;
     case "/":
-      return b => a => a / b;
+      return divide;
     default:
       return keyValue;
   }
 }
 
-export const plus = b => a => a + b;
-export const subtract = b => a => a - b;
-export const multiply = b => a => a * b;
-export const divide = b => a / b;

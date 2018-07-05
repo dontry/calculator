@@ -24,9 +24,12 @@
     "babel-preset-stage-2": "^6.24.1",
     "eslint-config-react-app": "^2.1.0",
     "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-jest": "^21.17.0",
     "eslint-plugin-prettier": "^2.6.1"
   },
   "jest": {
-    "coverageReporters": ["json"]
+    "coverageReporters": [
+      "json"
+    ]
   }
 }

@@ -5,7 +5,7 @@ import {
   TYPE_EQUAL,
   TYPE_DECIMAL,
   TYPE_CLEAR,
-  TYPE_PERCENT
+  TYPE_PERCENTAGE
 } from "../actions/index";
 
 export const INITIAL_STATE = {
@@ -15,6 +15,7 @@ export const INITIAL_STATE = {
   lastActionType: null
 };
 
+/*eslint no-case-declarations: 0*/
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case TYPE_NUMBER:
@@ -25,8 +26,10 @@ export default (state = INITIAL_STATE, action) => {
       return handleOperation(state, operation);
     case TYPE_CHANGE_SIGN:
       return handleChangeSign(state);
-    case TYPE_PERCENT:
-      return state;
+    case TYPE_PERCENTAGE:
+      return handlePercentage(state);
+    case TYPE_DECIMAL:
+      return handleDecimal(state);
     case TYPE_CLEAR:
       return handleClear(state);
     case TYPE_EQUAL:
@@ -37,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 function handleNumber(state, number) {
-  const { actualResult, displayResult, lastActionType } = state;
+  const { displayResult, lastActionType } = state;
   let newActualResult, newDisplayResult;
   if (
     lastActionType === TYPE_OPERATOR ||
@@ -64,32 +67,34 @@ function handleNumber(state, number) {
 
 function handleOperation(state, operation) {
   const { lastOperation, actualResult } = state;
-  let newOperation, newResult;
+  let newOperation, newActualResult;
   try {
     if (
       state.lastActionType === TYPE_OPERATOR ||
       state.lastActionType === TYPE_EQUAL
     ) {
-      newOperation = operation(actualResult);
+      newActualResult = actualResult;
+      newOperation = operation(newActualResult);
+    } else {
+      newActualResult = lastOperation(actualResult);
+      newOperation = operation(newActualResult);
     }
-    if ((state.lastActionType = TYPE_NUMBER)) {
-      newResult = lastOperation(actualResult);
-      newOperation = operation(newResult);
-    }
-    if (isFinite(newResult) === false || isNaN(newResult)) {
+    if (isFinite(newActualResult) === false || isNaN(newActualResult)) {
       throw new Error("result error");
     }
+
     return {
       ...state,
-      displayResult: "" + newResult,
-      actualResult: newResult,
+      displayResult: "" + newActualResult,
+      actualResult: newActualResult,
       lastOperation: newOperation,
       lastActionType: TYPE_OPERATOR
     };
   } catch (exception) {
     return {
       ...INITIAL_STATE,
-      displayResult: "ERROR"
+      displayResult: "ERROR",
+      lastActionType: TYPE_OPERATOR
     };
   }
 }
@@ -112,7 +117,6 @@ function handleChangeSign(state) {
 }
 
 function handleClear(state) {
-  const { lastActionType } = state;
   if (state.lastActionType === TYPE_CLEAR) {
     return INITIAL_STATE;
   } else {
@@ -126,7 +130,7 @@ function handleClear(state) {
 }
 
 function handleEqual(state) {
-  const { lastActionType, displayResult, actualResult, lastOperation } = state;
+  const { displayResult, actualResult, lastOperation } = state;
   let newActualResult, newDisplayResult;
   if (lastOperation.toString() === "x => x") {
     newActualResult = actualResult;
@@ -145,5 +149,28 @@ function handleEqual(state) {
     actualResult: newActualResult,
     displayResult: newDisplayResult,
     lastActionType: TYPE_EQUAL
+  };
+}
+
+function handlePercentage(state) {
+  const { actualResult } = state;
+  let newActualResult;
+  newActualResult = actualResult / 100;
+
+  return {
+    ...state,
+    actualResult: newActualResult,
+    displayResult: newActualResult.toString(),
+    lastActionType: TYPE_PERCENTAGE
+  };
+}
+
+function handleDecimal(state) {
+  return {
+    ...state,
+    displayResult: state.displayResult.includes(".")
+      ? state.displayResult
+      : state.displayResult + ".",
+    lastActionType: TYPE_DECIMAL
   };
 }
