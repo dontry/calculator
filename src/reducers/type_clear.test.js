@@ -1,7 +1,7 @@
 import {
   TYPE_NUMBER,
   TYPE_CLEAR,
-} from "../actions";
+} from "../actions/actionTypes";
 import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 

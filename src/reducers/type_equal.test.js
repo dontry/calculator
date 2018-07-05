@@ -3,7 +3,7 @@ import {
   TYPE_NUMBER,
   TYPE_OPERATOR,
   TYPE_EQUAL,
-} from "../actions";
+} from "../actions/actionTypes";
 import reducer from "./index";
 import { pressKey } from "../actions";
 

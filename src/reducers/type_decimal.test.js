@@ -4,7 +4,7 @@ import {
     TYPE_PERCENTAGE,
     TYPE_DECIMAL,
     TYPE_OPERATOR
-  } from "../actions";
+  } from "../actions/actionTypes";
   import reducer from "./index";
   import { pressKey } from "../actions";
   

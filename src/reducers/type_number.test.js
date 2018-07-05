@@ -1,4 +1,4 @@
-import { TYPE_NUMBER, TYPE_EQUAL, TYPE_OPERATOR } from "../actions/index";
+import { TYPE_NUMBER, TYPE_EQUAL, TYPE_OPERATOR } from "../actions/actionTypes";
 import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 

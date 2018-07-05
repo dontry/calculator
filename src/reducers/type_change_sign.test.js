@@ -1,4 +1,4 @@
-import { TYPE_NUMBER, TYPE_CHANGE_SIGN } from "../actions";
+import { TYPE_NUMBER, TYPE_CHANGE_SIGN } from "../actions/actionTypes";
 import reducer  from "./index";
 import { pressKey } from "../actions";
 

@@ -4,7 +4,7 @@ import {
   multiply,
   plus,
   divide
-} from "../actions/index";
+} from "../actions/actionTypes";
 import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 
