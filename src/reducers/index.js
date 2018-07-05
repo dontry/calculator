@@ -40,6 +40,7 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 function handleNumber(state, number) {
+  console.log(`number ${number}`)
   const { displayResult, lastActionType } = state;
   let newActualResult, newDisplayResult;
   if (

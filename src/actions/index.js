@@ -12,7 +12,7 @@ export const subtract = b => a => b - a;
 export const multiply = b => a => b * a;
 export const divide = b => a => b / a;
 
-export const pressKey = (keyType, keyValue = {}) => {
+export const pressKey = (keyType, keyValue) => {
   if (keyType === TYPE_OPERATOR || keyType === TYPE_NUMBER) {
     if (keyType === TYPE_OPERATOR) {
       keyValue = generateOperationFunc(keyValue);
