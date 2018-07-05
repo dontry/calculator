@@ -43,18 +43,17 @@ function handleNumber(state, number) {
   const { displayResult, lastActionType } = state;
   let newActualResult, newDisplayResult;
   if (
-    lastActionType === TYPE_OPERATOR ||
-    lastActionType === TYPE_EQUAL ||
-    lastActionType === TYPE_CLEAR ||
-    lastActionType === null
+    lastActionType === TYPE_NUMBER ||
+    lastActionType === TYPE_CHANGE_SIGN ||
+    lastActionType === TYPE_DECIMAL
   ) {
-    newDisplayResult = "" + number;
-  } else {
     if (displayResult === "0" || displayResult === "-0") {
       newDisplayResult = displayResult.replace("0", number);
     } else {
       newDisplayResult = displayResult + number;
     }
+  } else {
+    newDisplayResult = "" + number;
   }
   newActualResult = Number.parseFloat(newDisplayResult);
   return {
@@ -118,7 +117,7 @@ function handleChangeSign(state) {
 
 function handleClear(state) {
   if (state.lastActionType === TYPE_CLEAR) {
-    return INITIAL_STATE;
+    return { ...INITIAL_STATE, lastActionType: TYPE_CLEAR };
   } else {
     return {
       ...state,

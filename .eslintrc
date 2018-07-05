@@ -9,8 +9,8 @@
     "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:jest/recommended"],
     "globals": {
         "expect": true,
-        "toJson": true
-
+        "toJson": true,
+        "cy": true
     },
     "parserOptions": {
         "ecmaVersion": 7,
