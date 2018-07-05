@@ -1,8 +1,11 @@
-import view from "./view";
+import BaseView from "./BaseView";
+import ClearView from "./ClearView";
 import { connect } from "react-redux";
 import { pressKey } from "../../actions";
 
-export { view };
+const mapStateToProps = ({ lastActionType }) => ({
+  lastActionType
+});
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
@@ -13,7 +16,15 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(
+const BaseKey = connect(
   null,
   mapDispatchToProps
-)(view);
+)(BaseView);
+
+const ClearKey = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ClearView);
+
+export { BaseView, ClearKey };
+export default BaseKey;

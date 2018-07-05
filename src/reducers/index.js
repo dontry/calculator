@@ -40,7 +40,7 @@ export default (state = INITIAL_STATE, action) => {
 };
 
 function handleNumber(state, number) {
-  console.log(`number ${number}`)
+  console.log(`number ${number}`);
   const { displayResult, lastActionType } = state;
   let newActualResult, newDisplayResult;
   if (
@@ -119,7 +119,7 @@ function handleChangeSign(state) {
 
 function handleClear(state) {
   if (state.lastActionType === TYPE_CLEAR) {
-    return INITIAL_STATE;
+    return { ...INITIAL_STATE, lastActionType: TYPE_CLEAR };
   } else {
     return {
       ...state,

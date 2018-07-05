@@ -7,9 +7,9 @@ type PropTypes = {
   onClick: Function
 };
 
-const Key = ({ position, keySymbol, keyType, onClick }: PropTypes) => (
+const BaseView = ({ position, keySymbol, keyType, onClick }: PropTypes) => (
   <div
-    className={`key ${keyType} ${position}`}
+    className={`key ${keyType} ${position ? position : ""}`}
     onClick={e => {
       e.preventDefault();
       onClick();
@@ -19,4 +19,4 @@ const Key = ({ position, keySymbol, keyType, onClick }: PropTypes) => (
   </div>
 );
 
-export default Key;
+export default BaseView;
