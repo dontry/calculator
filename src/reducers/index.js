@@ -6,7 +6,7 @@ import {
   TYPE_DECIMAL,
   TYPE_CLEAR,
   TYPE_PERCENTAGE
-} from "../actions/index";
+} from "../actions/actionTypes";
 
 export const INITIAL_STATE = {
   displayResult: "0",

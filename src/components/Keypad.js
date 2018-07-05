@@ -9,7 +9,7 @@ import {
   TYPE_DECIMAL,
   TYPE_EQUAL,
   TYPE_PERCENTAGE
-} from "../actions";
+} from "../actions/actionTypes";
 
 const Keypad = () => {
   return (
@@ -17,7 +17,6 @@ const Keypad = () => {
       <ClearKey
         position="head"
         keyType={TYPE_CLEAR}
-        keySymbol="C"
         keyValue="clear"
       />
       <Key

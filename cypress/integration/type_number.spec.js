@@ -43,4 +43,10 @@ describe("TYPE_NUMBER", () => {
     cy.get("#key-1").click();
     cy.get(".screen").should("have.text", "1");
   });
+
+  // 0
+  it("should display 0, when press  0", () => {
+    cy.get("#key-0").click()
+    cy.get(".screen").should("have.text", "0");
+  })
 });
