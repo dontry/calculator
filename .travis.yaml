@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "node"
+
+install:
+  - npm install
+
+# whitelist
+branches:
+  only:
+    - master
+    - stable
+    - develop
+    - /^deploy-.*$/
+
