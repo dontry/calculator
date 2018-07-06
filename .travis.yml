@@ -18,4 +18,4 @@ cache:
   yarn
 
 script:
-  - $(yarn bin)/cypress run --record
+  - yarn run cypress --record
