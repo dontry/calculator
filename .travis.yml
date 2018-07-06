@@ -16,5 +16,3 @@ branches:
 
 cache:
   yarn
-  directories:
-    - "node_modules"
