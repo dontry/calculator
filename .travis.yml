@@ -16,10 +16,6 @@ branches:
 
 cache:
   yarn
-  directories:
-    - ~/.npm
-    - ~/.cache
-    - ~/node_modules
 
 script:
   - $(yarn bin)/cypress run --record
