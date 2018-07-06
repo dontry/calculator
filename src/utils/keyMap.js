@@ -10,6 +10,8 @@ export default function(key) {
       return "multiply";
     case "%":
       return "percentage";
+    case ".":
+      return "decimal";
     case "+/-":
       return "change_sign";
     case "=":

@@ -1,12 +1,6 @@
 import React from "react";
 import View from "./View";
-import { connect } from "react-redux";
-import { pressKey } from "../../actions";
 import keyMap from "../../utils/keyMap";
-
-type PropTypes = {
-  onKeyDown: Function
-};
 
 const EnhancedView = () => {
   function onKeyDown(e) {
@@ -19,11 +13,6 @@ const EnhancedView = () => {
   return <View />;
 };
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onKeyDown: e => {}
-  };
-};
 
 export { View };
 export default EnhancedView;

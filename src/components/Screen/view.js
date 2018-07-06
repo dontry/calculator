@@ -1,11 +1,11 @@
 import React from "react";
 
 type PropTypes = {
-  data: string
+  display: string
 };
 
-const Screen = ({ data }: PropTypes) => {
-  return <div className="screen">{data}</div>;
+const Screen = ({ display }: PropTypes) => {
+  return <div className="screen">{display}</div>;
 };
 
 export default Screen;
