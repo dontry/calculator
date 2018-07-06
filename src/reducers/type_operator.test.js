@@ -11,7 +11,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: x => x,
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "*");
+    const action = pressKey(TYPE_OPERATOR, "multiply");
     const curState = reducer(prevState, action);
     const {
       lastOperation,
@@ -35,7 +35,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: multiply(2),
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "*");
+    const action = pressKey(TYPE_OPERATOR, "multiply");
     const curState = reducer(prevState, action);
 
     expect({
@@ -58,7 +58,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: plus(2),
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "+");
+    const action = pressKey(TYPE_OPERATOR, "plus");
     const curState = reducer(prevState, action);
 
     expect({
@@ -80,7 +80,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: plus(2),
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "*");
+    const action = pressKey(TYPE_OPERATOR, "multiply");
     const curState = reducer(prevState, action);
 
     expect({
@@ -101,7 +101,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: divide(2),
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "+");
+    const action = pressKey(TYPE_OPERATOR, "plus");
     const curState = reducer(prevState, action);
     expect({
       ...curState,
@@ -120,7 +120,7 @@ describe("TYPE OPERATOR", () => {
       lastOperation: divide(2),
       lastActionType: TYPE_NUMBER
     };
-    const action = pressKey(TYPE_OPERATOR, "+");
+    const action = pressKey(TYPE_OPERATOR, "plus");
     const curState = reducer(prevState, action);
     expect({
       ...curState,
