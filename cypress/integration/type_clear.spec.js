@@ -16,7 +16,7 @@ describe("TYPE_CLEAR", () => {
   it("display 6, when press 2, *, 2, clear, 3, =", () => {
     cy.get("#key-2").click();
     cy.get(".screen").should("have.text", "2");
-    cy.get("#key-\\*").click();
+    cy.get("#key-multiply").click();
     cy.get(".screen").should("have.text", "2");
     cy.get("#key-2").click();
     cy.get(".screen").should("have.text", "2");
@@ -24,7 +24,7 @@ describe("TYPE_CLEAR", () => {
     cy.get(".screen").should("have.text", "0");
     cy.get("#key-3").click();
     cy.get(".screen").should("have.text", "3");
-    cy.get("#key-\\=").click();
+    cy.get("#key-equal").click();
     cy.get(".screen").should("have.text", "6");
   });
 });

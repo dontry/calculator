@@ -26,13 +26,13 @@ export const pressKey = (keyType, keyValue) => {
 
 function generateOperationFunc(keyValue) {
   switch (keyValue) {
-    case "+":
+    case "plus":
       return plus;
-    case "-":
+    case "subtract":
       return subtract;
-    case "*":
+    case "multiply":
       return multiply;
-    case "/":
+    case "divide":
       return divide;
     default:
       return keyValue;

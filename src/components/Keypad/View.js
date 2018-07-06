@@ -1,6 +1,5 @@
 import React from "react";
-import "./style.css";
-import Key, { ClearKey } from "./Key";
+import Key, { ClearKey } from "../Key";
 import {
   TYPE_OPERATOR,
   TYPE_NUMBER,
@@ -9,33 +8,29 @@ import {
   TYPE_DECIMAL,
   TYPE_EQUAL,
   TYPE_PERCENTAGE
-} from "../actions/actionTypes";
+} from "../../actions/actionTypes";
 
 const Keypad = () => {
   return (
     <div className="keypad">
-      <ClearKey
-        position="head"
-        keyType={TYPE_CLEAR}
-        keyValue="clear"
-      />
+      <ClearKey position="head" keyType={TYPE_CLEAR} keyValue="clear" />
       <Key
         position="head"
         keyType={TYPE_CHANGE_SIGN}
         keySymbol="±"
-        keyValue="+/-"
+        keyValue="change_sign"
       />
       <Key
         position="head"
         keyType={TYPE_PERCENTAGE}
         keySymbol="%"
-        keyValue="%"
+        keyValue="percentage"
       />
       <Key
         position="aside"
         keyType={TYPE_OPERATOR}
         keySymbol="÷"
-        keyValue="/"
+        keyValue="divide"
       />
       <Key keyType={TYPE_NUMBER} keySymbol="7" keyValue="7" />
       <Key keyType={TYPE_NUMBER} keySymbol="8" keyValue="8" />
@@ -44,7 +39,7 @@ const Keypad = () => {
         position="aside"
         keyType={TYPE_OPERATOR}
         keySymbol="×"
-        keyValue="*"
+        keyValue="multiply"
       />
       <Key keyType={TYPE_NUMBER} keySymbol="4" keyValue="4" />
       <Key keyType={TYPE_NUMBER} keySymbol="5" keyValue="5" />
@@ -53,7 +48,7 @@ const Keypad = () => {
         position="aside"
         keyType={TYPE_OPERATOR}
         keySymbol="-"
-        keyValue="-"
+        keyValue="subtract"
       />
       <Key keyType={TYPE_NUMBER} keySymbol="1" keyValue="1" />
       <Key keyType={TYPE_NUMBER} keySymbol="2" keyValue="2" />
@@ -62,7 +57,7 @@ const Keypad = () => {
         position="aside"
         keyType={TYPE_OPERATOR}
         keySymbol="+"
-        keyValue="+"
+        keyValue="plus"
       />
       <Key
         position="bottomLeft"
@@ -70,8 +65,8 @@ const Keypad = () => {
         keySymbol="0"
         keyValue="0"
       />
-      <Key keyType={TYPE_DECIMAL} keySymbol="." keyValue="." />
-      <Key position="aside" keyType={TYPE_EQUAL} keySymbol="=" keyValue="=" />
+      <Key keyType={TYPE_DECIMAL} keySymbol="." keyValue="decimal" />
+      <Key position="aside" keyType={TYPE_EQUAL} keySymbol="=" keyValue="equal" />
     </div>
   );
 };
