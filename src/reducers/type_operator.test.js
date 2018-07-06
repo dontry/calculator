@@ -1,5 +1,5 @@
-import { TYPE_NUMBER, TYPE_OPERATOR, multiply } from "../actions/actionTypes";
-import { plus, divide } from "../actions";
+import { TYPE_NUMBER, TYPE_OPERATOR } from "../actions/actionTypes";
+import { plus, divide, multiply } from "../actions";
 import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 
@@ -104,11 +104,12 @@ describe("TYPE OPERATOR", () => {
     const action = pressKey(TYPE_OPERATOR, "+");
     const curState = reducer(prevState, action);
     expect({
-      ...curState
+      ...curState,
+      lastOperation: curState.toString(),
     }).toEqual({
-      ...INITIAL_STATE,
       actualResult: NaN,
       displayResult: "NaN",
+      lastOperation: prevState.toString(),
       lastActionType: TYPE_OPERATOR
     });
   });
@@ -122,11 +123,12 @@ describe("TYPE OPERATOR", () => {
     const action = pressKey(TYPE_OPERATOR, "+");
     const curState = reducer(prevState, action);
     expect({
-      ...curState
+      ...curState,
+      lastOperation: curState.toString(),
     }).toEqual({
-      ...INITIAL_STATE,
       actualResult: NaN,
       displayResult: "NaN",
+      lastOperation: prevState.toString(),
       lastActionType: TYPE_OPERATOR
     });
   });
