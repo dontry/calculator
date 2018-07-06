@@ -22,4 +22,4 @@ cache:
     - ~/node_modules
 
 script:
-  - $(yarn bin)/cypress run --record
+  - yarn run cypress --record
