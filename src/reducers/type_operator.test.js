@@ -1,10 +1,5 @@
-import {
-  TYPE_NUMBER,
-  TYPE_OPERATOR,
-  multiply,
-  plus,
-  divide
-} from "../actions/actionTypes";
+import { TYPE_NUMBER, TYPE_OPERATOR, multiply } from "../actions/actionTypes";
+import { plus, divide } from "../actions";
 import reducer, { INITIAL_STATE } from "./index";
 import { pressKey } from "../actions";
 
@@ -99,7 +94,7 @@ describe("TYPE OPERATOR", () => {
     });
     expect(curState.lastOperation(2)).toEqual(multiply(5)(2));
   });
-  it("should display 'ERROR' and reset state, when previous number is 0, lastActionType is TYPE_NUMBER, last operation is (x) => 2 / x, and pressed key is '+'", () => {
+  it("should display 'NaN' and reset state, when previous number is 0, lastActionType is TYPE_NUMBER, last operation is (x) => 2 / x, and pressed key is '+'", () => {
     const prevState = {
       displayResult: "0",
       actualResult: 0,
@@ -109,10 +104,29 @@ describe("TYPE OPERATOR", () => {
     const action = pressKey(TYPE_OPERATOR, "+");
     const curState = reducer(prevState, action);
     expect({
-      ...curState,
+      ...curState
     }).toEqual({
       ...INITIAL_STATE,
-      displayResult: "ERROR",
+      actualResult: NaN,
+      displayResult: "NaN",
+      lastActionType: TYPE_OPERATOR
+    });
+  });
+  it("should display 'NaN' and reset state, when previous number is NaN, lastActionType is TYPE_NUMBER", () => {
+    const prevState = {
+      displayResult: "NaN",
+      actualResult: NaN,
+      lastOperation: divide(2),
+      lastActionType: TYPE_NUMBER
+    };
+    const action = pressKey(TYPE_OPERATOR, "+");
+    const curState = reducer(prevState, action);
+    expect({
+      ...curState
+    }).toEqual({
+      ...INITIAL_STATE,
+      actualResult: NaN,
+      displayResult: "NaN",
       lastActionType: TYPE_OPERATOR
     });
   });

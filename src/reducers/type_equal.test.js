@@ -95,7 +95,7 @@ describe("TYPE EQUAL", () => {
     });
   });
 
-  it("should be ' 2 / 0 = ERROR',last action type is TYPE_NUMBER", () => {
+  it("should be ' 2 / 0 = NaN',last action type is TYPE_NUMBER", () => {
     const prevState = {
       displayResult: "0",
       actualResult: 0,
@@ -107,12 +107,12 @@ describe("TYPE EQUAL", () => {
     const curState = reducer(prevState, action);
     expect(curState).toEqual({
       ...prevState,
-      displayResult: "Error",
+      displayResult: "NaN",
       actualResult: NaN,
       lastActionType: TYPE_EQUAL
     });
   });
-  it("should be ' 0 / 0 = ERROR',last action type is TYPE_OPERATOR", () => {
+  it("should be ' 0 / 0 = NaN',last action type is TYPE_OPERATOR", () => {
     const prevState = {
       displayResult: "0",
       actualResult: 0,
@@ -124,7 +124,7 @@ describe("TYPE EQUAL", () => {
     const curState = reducer(prevState, action);
     expect(curState).toEqual({
       ...prevState,
-      displayResult: "Error",
+      displayResult: "NaN",
       actualResult: NaN,
       lastActionType: TYPE_EQUAL
     });

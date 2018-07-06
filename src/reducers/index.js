@@ -91,8 +91,9 @@ function handleOperation(state, operation) {
     };
   } catch (exception) {
     return {
-      ...INITIAL_STATE,
-      displayResult: "ERROR",
+      actualResult: NaN,
+      displayResult: "NaN",
+      lastOperation: newOperation,
       lastActionType: TYPE_OPERATOR
     };
   }
@@ -131,13 +132,13 @@ function handleClear(state) {
 function handleEqual(state) {
   const { displayResult, actualResult, lastOperation } = state;
   let newActualResult, newDisplayResult;
-  if (lastOperation.toString() === "x => x") {
+  if (lastOperation(2) === 2) {
     newActualResult = actualResult;
     newDisplayResult = displayResult;
   } else if (lastOperation.toString().includes("/") && actualResult === 0) {
-    // x / 0 = ERROR
+    // x / 0 = NaN
     newActualResult = NaN;
-    newDisplayResult = "Error";
+    newDisplayResult = "NaN";
   } else {
     newActualResult = lastOperation(actualResult);
     newDisplayResult = "" + newActualResult;
@@ -152,9 +153,16 @@ function handleEqual(state) {
 }
 
 function handlePercentage(state) {
-  const { actualResult } = state;
+  const { actualResult, displayResult } = state;
   let newActualResult;
-  newActualResult = actualResult / 100;
+  const decimalIndex = displayResult.indexOf(".");
+  if (decimalIndex === -1 || actualResult - Math.floor(actualResult) === 0) {
+    newActualResult = actualResult / 100;
+  } else {
+    //Fix issue of floating point precision
+    const precision = displayResult.substr(decimalIndex + 1).length + 2;
+    newActualResult = Number.parseFloat(actualResult / 100).toFixed(precision);
+  }
 
   return {
     ...state,
@@ -165,11 +173,26 @@ function handlePercentage(state) {
 }
 
 function handleDecimal(state) {
+  const { lastActionType, displayResult, actualResult } = state;
+  let newDisplayResult, newActualResult;
+  if (
+    lastActionType === TYPE_NUMBER ||
+    lastActionType === TYPE_CHANGE_SIGN ||
+    lastActionType === TYPE_PERCENTAGE ||
+    lastActionType === TYPE_DECIMAL
+  ) {
+    newActualResult = actualResult;
+    newDisplayResult = displayResult.includes(".")
+      ? displayResult
+      : displayResult + ".";
+  } else {
+    newActualResult = 0;
+    newDisplayResult = "0.";
+  }
   return {
     ...state,
-    displayResult: state.displayResult.includes(".")
-      ? state.displayResult
-      : state.displayResult + ".",
+    actualResult: newActualResult,
+    displayResult: newDisplayResult,
     lastActionType: TYPE_DECIMAL
   };
 }

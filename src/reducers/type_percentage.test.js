@@ -1,44 +1,84 @@
 import {
-  TYPE_NUMBER,
-  TYPE_DECIMAL
-} from "../actions/actionTypes";
-import reducer from "./index";
-import { pressKey } from "../actions";
-
-describe("TYPE DECIMAL", () => {
-  it("should display 10., when previous number is 10, last action type is TYPE_NUMBER", () => {
-    const prevState = {
-      displayResult: "10",
-      actualResult: 10,
-      lastOperation: x => 2 * x,
-      lastActionType: TYPE_NUMBER
-    };
-
-    const action = pressKey(TYPE_DECIMAL);
-    const curState = reducer(prevState, action);
-    expect(curState).toEqual({
-      ...prevState,
-      displayResult: "10.",
-      actualResult: 10,
-      lastActionType: TYPE_DECIMAL
+    TYPE_NUMBER,
+    TYPE_EQUAL,
+    TYPE_PERCENTAGE,
+    TYPE_DECIMAL,
+    TYPE_OPERATOR
+  } from "../actions/actionTypes";
+  import reducer from "./index";
+  import { pressKey } from "../actions";
+  
+  describe("TYPE PERCENTAGE", () => {
+    it("should be 0.02, when previous number is 2, last action type is TYPE_NUMBER", () => {
+      const prevState = {
+        displayResult: "2",
+        actualResult: 2,
+        lastOperation: x => 2 * x,
+        lastActionType: TYPE_NUMBER
+      };
+  
+      const action = pressKey(TYPE_PERCENTAGE);
+      const curState = reducer(prevState, action);
+      expect(curState).toEqual({
+        ...prevState,
+        displayResult: "0.02",
+        actualResult: 0.02,
+        lastActionType: TYPE_PERCENTAGE
+      });
+    })
+   
+    it("should be 0.02, when previous number is 2, last action type is TYPE_EQUAL", () => {
+      const prevState = {
+        displayResult: "2",
+        actualResult: 2,
+        lastOperation: x => 2 * x,
+        lastActionType: TYPE_EQUAL
+      };
+  
+      const action = pressKey(TYPE_PERCENTAGE);
+      const curState = reducer(prevState, action);
+      expect(curState).toEqual({
+        ...prevState,
+        displayResult: "0.02",
+        actualResult: 0.02,
+        lastActionType: TYPE_PERCENTAGE
+      });
+    });
+  
+    it("should be 0, when previous number is 0, last action type is TYPE_OPERATOR", () => {
+      const prevState = {
+        displayResult: "0.",
+        actualResult: 0,
+        lastOperation: x => x,
+        lastActionType: TYPE_DECIMAL
+      };
+  
+      const action = pressKey(TYPE_PERCENTAGE);
+      const curState = reducer(prevState, action);
+      expect(curState).toEqual({
+        ...prevState,
+        displayResult: "0",
+        actualResult: 0,
+        lastActionType: TYPE_PERCENTAGE
+      });
+    });
+  
+    it("should be 0.02, when previous number is 2, last operation is x => 2 * x, last action type is TYPE_OPERATOR", () => {
+      const prevState = {
+        displayResult: "2",
+        actualResult: 2,
+        lastOperation: x => 2 * x,
+        lastActionType: TYPE_OPERATOR
+      };
+  
+      const action = pressKey(TYPE_PERCENTAGE);
+      const curState = reducer(prevState, action);
+      expect(curState).toEqual({
+        ...prevState,
+        displayResult: "0.02",
+        actualResult: 0.02,
+        lastActionType: TYPE_PERCENTAGE
+      });
     });
   });
-
-  it("should display 2.01, when previous number is 2.01, last action type is TYPE_DECIMAL", () => {
-    const prevState = {
-      displayResult: "2.01",
-      actualResult: 2.01,
-      lastOperation: x => 2 * x,
-      lastActionType: TYPE_DECIMAL
-    };
-
-    const action = pressKey(TYPE_DECIMAL);
-    const curState = reducer(prevState, action);
-    expect(curState).toEqual({
-      ...prevState,
-      displayResult: "2.01",
-      actualResult: 2.01,
-      lastActionType: TYPE_DECIMAL
-    });
-  });
-});
+  
