@@ -16,10 +16,6 @@ branches:
 cache:
   yarn
 
-before_script:
-  - yarn start -- --silent &
-
 script:
   - yarn test
-  - yarn run cypress
-  - yarn build
+  - yarn run cypress:run
