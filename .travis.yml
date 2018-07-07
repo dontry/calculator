@@ -19,3 +19,4 @@ cache:
 script:
   - yarn test
   - yarn run cypress:run
+  - yarn postinstall
