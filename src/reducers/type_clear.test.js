@@ -3,7 +3,7 @@ import {
   TYPE_CLEAR,
 } from "../actions/actionTypes";
 import reducer, { INITIAL_STATE } from "./index";
-import { pressKey } from "../actions";
+import { pressKey, multiply, assign } from "../actions";
 
 
 describe("TYPE CLEAR", () => {
@@ -11,7 +11,8 @@ describe("TYPE CLEAR", () => {
     const prevState = {
       displayResult: "22",
       actualResult: 22,
-      lastOperation: x => 2 * x,
+      lastOperation: multiply(2),
+      lastOperator: multiply,
       lastActionType: TYPE_NUMBER
     };
 
@@ -19,12 +20,10 @@ describe("TYPE CLEAR", () => {
     const curState = reducer(prevState, action);
     expect({
       ...curState,
-      lastOperation: curState.lastOperation.toString()
     }).toEqual({
       ...prevState,
       displayResult: "0",
       actualResult: 0,
-      lastOperation: prevState.lastOperation.toString(),
       lastActionType: TYPE_CLEAR
     });
   });
@@ -33,7 +32,8 @@ describe("TYPE CLEAR", () => {
     const prevState = {
       displayResult: "22",
       actualResult: 22,
-      lastOperation: x => x,
+      lastOperation: assign,
+      lastOperator: null,
       lastActionType: TYPE_NUMBER
     };
 
@@ -41,11 +41,9 @@ describe("TYPE CLEAR", () => {
     const curState = reducer(prevState, action);
     expect({
       ...curState,
-      lastOperation: INITIAL_STATE.lastOperation.toString()
     }).toEqual({
       ...INITIAL_STATE,
       lastActionType: TYPE_CLEAR,
-      lastOperation: INITIAL_STATE.lastOperation.toString()
     });
   });
 });

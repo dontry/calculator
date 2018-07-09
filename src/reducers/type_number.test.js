@@ -1,6 +1,6 @@
 import { TYPE_NUMBER, TYPE_EQUAL, TYPE_OPERATOR } from "../actions/actionTypes";
 import reducer, { INITIAL_STATE } from "./index";
-import { pressKey } from "../actions";
+import { pressKey, assign } from "../actions";
 
 describe("TYPE NUMBER", () => {
   it("should display 2 when previous state is INITIAL_STATE and pressed number is 2", () => {
@@ -19,7 +19,7 @@ describe("TYPE NUMBER", () => {
     const prevState = {
       displayResult: "2",
       actualResult: 2,
-      lastOperation: x => x,
+      lastOperation: assign,
       lastActionType: TYPE_NUMBER
     };
 
@@ -37,7 +37,7 @@ describe("TYPE NUMBER", () => {
     const prevState = {
       displayResult: "22",
       actualResult: 22,
-      lastOperation: x => x,
+      lastOperation: assign,
       lastActionType: TYPE_OPERATOR
     };
 
@@ -55,7 +55,7 @@ describe("TYPE NUMBER", () => {
     const prevState = {
       displayResult: "22",
       actualResult: 22,
-      lastOperation: x => x,
+      lastOperation: assign,
       lastActionType: TYPE_EQUAL
     };
 

@@ -8,10 +8,13 @@ import {
   TYPE_PERCENTAGE
 } from "../actions/actionTypes";
 
+import { assign } from "../actions";
+
 export const INITIAL_STATE = {
   displayResult: "0",
   actualResult: 0,
-  lastOperation: x => x,
+  lastOperation: assign,
+  lastOperator: null,
   lastActionType: null
 };
 
@@ -64,7 +67,7 @@ function handleNumber(state, number) {
   };
 }
 
-function handleOperation(state, operation) {
+function handleOperation(state, operator) {
   const { lastOperation, actualResult } = state;
   let newOperation, newActualResult;
   try {
@@ -73,10 +76,10 @@ function handleOperation(state, operation) {
       state.lastActionType === TYPE_EQUAL
     ) {
       newActualResult = actualResult;
-      newOperation = operation(newActualResult);
+      newOperation = operator(newActualResult);
     } else {
       newActualResult = lastOperation(actualResult);
-      newOperation = operation(newActualResult);
+      newOperation = operator(newActualResult);
     }
     if (isFinite(newActualResult) === false || isNaN(newActualResult)) {
       throw new Error("result error");
@@ -87,6 +90,7 @@ function handleOperation(state, operation) {
       displayResult: "" + newActualResult,
       actualResult: newActualResult,
       lastOperation: newOperation,
+      lastOperator: operator,
       lastActionType: TYPE_OPERATOR
     };
   } catch (exception) {
@@ -94,6 +98,7 @@ function handleOperation(state, operation) {
       actualResult: NaN,
       displayResult: "NaN",
       lastOperation: newOperation,
+      lastOperator: operator,
       lastActionType: TYPE_OPERATOR
     };
   }
@@ -129,28 +134,42 @@ function handleClear(state) {
   }
 }
 
-function handleEqual(state) {
-  const { displayResult, actualResult, lastOperation } = state;
-  let newActualResult, newDisplayResult;
-  if (lastOperation(2) === 2) {
-    newActualResult = actualResult;
-    newDisplayResult = displayResult;
-  } else if (lastOperation.toString().includes("/") && actualResult === 0) {
-    // x / 0 = NaN
-    newActualResult = NaN;
-    newDisplayResult = "NaN";
-  } else {
-    newActualResult = lastOperation(actualResult);
-    newDisplayResult = "" + newActualResult;
-  }
-
-  return {
-    ...state,
-    actualResult: newActualResult,
-    displayResult: newDisplayResult,
-    lastActionType: TYPE_EQUAL
+const handleEqual = (function() {
+  let lastNumber;
+  return function(state) {
+    const {
+      actualResult,
+      displayResult,
+      lastOperation,
+      lastOperator,
+      lastActionType
+    } = state;
+    let newActualResult, newDisplayResult;
+    if (lastOperation.toString() === assign.toString()) {
+      newActualResult = actualResult;
+      newDisplayResult = displayResult;
+    } else if (lastActionType === TYPE_EQUAL) {
+      newActualResult = lastOperator(lastNumber)(actualResult);
+      newDisplayResult = "" + newActualResult;
+    } else {
+      lastNumber = actualResult;
+      if (lastOperation.toString().includes("/") && actualResult === 0) {
+        // x / 0 = NaN
+        newActualResult = NaN;
+        newDisplayResult = "NaN";
+      } else {
+        newActualResult = lastOperation(actualResult);
+        newDisplayResult = "" + newActualResult;
+      }
+    }
+    return {
+      ...state,
+      actualResult: newActualResult,
+      displayResult: newDisplayResult,
+      lastActionType: TYPE_EQUAL
+    };
   };
-}
+})();
 
 function handlePercentage(state) {
   const { actualResult, displayResult } = state;

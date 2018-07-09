@@ -36,4 +36,17 @@ describe("TYPE_EQUAL", () => {
     cy.get("#key-equal").click();
     cy.get(".screen").should("have.text", "-8");
   })
+
+  it("should display 12 when press 3, *, 2, =, =", () => {
+    cy.get("#key-3").click();
+    cy.get(".screen").should("have.text", "3");
+    cy.get("#key-multiply").click();
+    cy.get(".screen").should("have.text", "3");
+    cy.get("#key-2").click()
+    cy.get(".screen").should("have.text", "2");
+    cy.get("#key-equal").click();
+    cy.get(".screen").should("have.text", "6");
+    cy.get("#key-equal").click();
+    cy.get(".screen").should("have.text", "12");
+  })
 });

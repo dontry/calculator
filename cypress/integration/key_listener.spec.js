@@ -30,6 +30,20 @@ describe("KEY_LISTENER", () => {
     cy.get(".screen").should("have.text", "8.4");
   });
 
+  //3, *, 2, =, Enter
+  it("should display 12, when type 3, *, 2, =, Enter", () => {
+    cy.get("body").type("3");
+    cy.get(".screen").should("have.text", "3");
+    cy.get("body").type("*");
+    cy.get(".screen").should("have.text", "3");
+    cy.get("body").type("2");
+    cy.get(".screen").should("have.text", "2");
+    cy.get("body").type("=");
+    cy.get(".screen").should("have.text", "6");
+    cy.get("body").type("{enter}");
+    cy.get(".screen").should("have.text", "12");
+  });
+
   it("should display 0, when type 1, c,", () => {
     cy.get("body").type("1");
     cy.get(".screen").should("have.text", "1");

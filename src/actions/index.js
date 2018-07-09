@@ -7,6 +7,7 @@ export const plus = b => a => b + a;
 export const subtract = b => a => b - a;
 export const multiply = b => a => b * a;
 export const divide = b => a => b / a;
+export const assign = x => x;
 
 export const pressKey = (keyType, keyValue) => {
   if (keyType === TYPE_OPERATOR || keyType === TYPE_NUMBER) {

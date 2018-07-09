@@ -3,14 +3,15 @@ import {
   TYPE_DECIMAL
 } from "../actions/actionTypes";
 import reducer from "./index";
-import { pressKey } from "../actions";
+import { pressKey, multiply } from "../actions";
 
 describe("TYPE DECIMAL", () => {
   it("should display 10., when previous number is 10, last action type is TYPE_NUMBER", () => {
     const prevState = {
       displayResult: "10",
       actualResult: 10,
-      lastOperation: x => 2 * x,
+      lastOperation: multiply(2),
+      lastOperator: multiply,
       lastActionType: TYPE_NUMBER
     };
 
@@ -28,7 +29,8 @@ describe("TYPE DECIMAL", () => {
     const prevState = {
       displayResult: "2.01",
       actualResult: 2.01,
-      lastOperation: x => 2 * x,
+      lastOperation: multiply(2),
+      lastOperator: multiply,
       lastActionType: TYPE_DECIMAL
     };
 
