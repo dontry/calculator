@@ -149,7 +149,7 @@ const handleEqual = (function() {
       newActualResult = actualResult;
       newDisplayResult = displayResult;
     } else if (lastActionType === TYPE_EQUAL) {
-      newActualResult = lastOperator(lastNumber)(actualResult);
+      newActualResult = lastOperator(actualResult)(lastNumber);
       newDisplayResult = "" + newActualResult;
     } else {
       lastNumber = actualResult;
